@@ -101,3 +101,4 @@ void pu_gpio_configure_interrupt(uint16_t pin_no, int_edge_sel_t edge_sel);
 void pu_gpio_enable_interrupt(uint16_t pin_no, IRQn_Type irq_no);
 
 void pu_gpio_clear_interrupt(uint16_t pin);
+

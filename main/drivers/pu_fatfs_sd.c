@@ -639,27 +639,16 @@ DRESULT disk_ioctl(
 	return res;
 }
 
-
-/*---------------------------------------------------------*/
-/* User provided RTC function for FatFs module             */
-/*---------------------------------------------------------*/
-/* This is a real time clock service to be called back     */
-/* from FatFs module.                                      */
-
-#if !FF_FS_NORTC && !FF_FS_READONLY
-DWORD get_fattime (void)
-{
-	RTCTIME rtc;
-
-	/* Get local time */
-	if (!rtc_gettime(&rtc)) return 0;
-
-	/* Pack date and time into a DWORD variable */
-	return	  ((DWORD)(rtc.year - 1980) << 25)
-			| ((DWORD)rtc.month << 21)
-			| ((DWORD)rtc.mday << 16)
-			| ((DWORD)rtc.hour << 11)
-			| ((DWORD)rtc.min << 5)
-			| ((DWORD)rtc.sec >> 1);
+/*-----------------------------------------------------------------------*/
+/* Get time for fatfs for files                                          */
+/*-----------------------------------------------------------------------*/
+__weak DWORD get_fattime(void) {
+	/* Returns current time packed into a DWORD variable */
+	return	  ((DWORD)(2013 - 1980) << 25)	/* Year 2013 */
+			| ((DWORD)7 << 21)				/* Month 7 */
+			| ((DWORD)28 << 16)				/* Mday 28 */
+			| ((DWORD)0 << 11)				/* Hour 0 */
+			| ((DWORD)0 << 5)				/* Min 0 */
+			| ((DWORD)0 >> 1);				/* Sec 0 */
 }
-#endif
+
