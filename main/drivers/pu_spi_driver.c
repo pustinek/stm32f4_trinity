@@ -424,6 +424,7 @@ void pu_spi_handle_tx_interrupt(pu_spi_handle_t *handler)
 		handler->Instance->DR = (*handler->pTxBuffPtr++);
 		handler->TxXferCount--; //we sent 1 byte
 	}
+	/* Transmit data in 16bit mode */
 	else
 	{
 		handler->Instance->DR = *((uint16_t *)handler->pTxBuffPtr++);

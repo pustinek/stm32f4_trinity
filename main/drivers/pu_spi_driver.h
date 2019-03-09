@@ -13,7 +13,7 @@
 #ifndef __PU_SPI_DRIVER_H
 #define __PU_SPI_DRIVER_H
 
-#include "stm32f407xx.h"
+#include "stm32f4xx.h"
 
 /******************************** BIT defintions for SPI_CR1 register ****************************************/
 
@@ -150,6 +150,7 @@ typedef struct __spi_handle_t
 void pu_spi_init(pu_spi_handle_t *spi_handle);
 
 void pu_spi_master_tx(pu_spi_handle_t *spi_handle, uint8_t *buffer, uint32_t len);
+void pu_spi_master_rx(pu_spi_handle_t *spi_handle, uint8_t *rx_buffer, uint32_t len);
 void pu_spi_slave_rx(pu_spi_handle_t *spi_handle, uint8_t *buffer, uint32_t len);
 void pu_spi_slave_tx(pu_spi_handle_t *spi_handle, uint8_t *rcv_buffer, uint32_t len);
 

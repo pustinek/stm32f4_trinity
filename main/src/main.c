@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include "pu_uart_driver.h"
 #include "pu_spi_driver.h"
+#include "pu_fatfs_sd.h"
+#include "ff.h"
+#include "diskio.h"
 #include "spi_main.h"
 #include "stm32f4xx.h"
 
@@ -184,8 +187,9 @@ void spi_init(void)
  * 
  * ==================================================== */
 
-int main(void)
+int oldMain(void)
 {
+
 	/* LED init */
 	led_init();
 	/* Blue button init */
@@ -217,6 +221,25 @@ int main(void)
 
 		/*Recieve the message*/
 		pu_uart_recieve(&uart_handle2, rx_buffer, 10);
+	}
+}
+
+int main(void)
+{
+	led_init();
+	user_button_init();
+	/* FatFS stuff...*/
+	FATFS FatFS;
+	FIL file;
+	uint32_t total, free;
+
+	/* Enable the IRQs in the NVIC */
+	NVIC_EnableIRQ(USART2_IRQn);
+	NVIC_EnableIRQ(SPI2_IRQn);
+	/* FatFS Logic */
+	if (f_mount(&FatFS, "", 1) == FR_OK)
+	{
+		led_turn_on(GPIOD, LED_ORANGE);
 	}
 }
 

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.tpl": "html",
+        "pu_spi_driver.h": "c"
+    }
+}
